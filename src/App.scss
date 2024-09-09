@@ -1,0 +1,185 @@
+*, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1, h2, p {
+    font-family: 'Poppins', sans-serif;
+    color: #B6869C;
+    flex: 0 0 100%;
+    text-align: center;
+}
+h1{
+  font-size: 2.5rem;
+  margin-top: 2rem;
+}
+h2 {
+  font-size: 2rem;
+}
+p {
+  font-size: 1.5rem;
+}
+
+.main {
+    width: 375px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap:wrap;
+}
+
+.game-area {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0 1rem;
+}
+
+.gameboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+    background-color: darkgray;
+    gap: 0.25rem;
+    padding: 0.25rem 0;
+
+    .tile {
+    height: 80px;
+    width: 80px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem 0;
+    font-size: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 0.5rem;
+    color: white;
+
+    @media (min-width: 480px) {
+      font-size: 2rem;
+    }
+
+    }
+    .n2 {
+      background-color: #DDC3D0;
+      color: #1C1518;
+    }
+    .n4{
+      background-color: #CCA4B8;
+      color: #1C1518;
+    }
+    .n8 {
+      background-color: #B6869C;
+    }
+    .n16{
+      background-color: #804D63;
+      
+    }
+    .n32 {
+      background-color: #5A7684;
+      
+    }
+    .n64{
+      background-color: #425761;
+    }
+    .n128 {
+      background-color: #395B50;
+    }
+    .n265 {
+      background-color:#467263;
+    }
+    .n512 {
+      background-color:#273F37;
+    }
+    .n1024{
+      background-color:#41612E;
+    }
+    .n2048{
+      background-color: #1F2F16;
+    }
+  @media (min-width: 480px) {
+    //width: 350px;
+  }
+  }
+  .button-bar {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: space-evenly;
+    
+    .move-buttons {
+      display: none;
+      @media(min-width: 768px){
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    justify-content: space-evenly;
+      }
+    }
+  }
+
+  button {
+    flex: 0 0 48%;
+    padding: 0.5rem 0;
+    color: #fff;
+    font-size: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 0.5rem;
+    border:5px solid #B6869C;
+    background-color: #B6869C;
+    &.new{
+      flex: 0 0 100%;
+    }
+    &:focus {
+      outline: 2px solid #804D63;
+    }
+    &:hover {
+      border:5px solid #804D63;
+      background-color: #804D63;
+    }
+  }
+
+  .score{
+    margin: 1rem;
+    p{
+      text-align: left;
+    }
+  }
+  .result{
+    padding: 2rem;
+    border: none;
+    border-radius: 0.5rem;
+    margin: auto;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    .wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+  }
+  .modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s
+  }
+  
+  /* Add Animation */
+  @keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+  }
