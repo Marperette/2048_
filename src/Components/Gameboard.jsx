@@ -18,48 +18,69 @@ function Gameboard() {
     dialog.current.open();
   }
 
-  useEffect(() => {
-    const size = gameBoard.length;
-    var state = true;
-    var win = false;
+  function hasZeroes(board) {
+    const size = board.length;
     for (let row = 0; row < size; row++) {
       for (let col = 0; col < size; col++) {
-        if (gameBoard[row][col] === 0) {
-          state = false;
-        }
-        if (gameBoard[row][col] === 2048) {
-          win = true;
+        if (board[row][col] === 0) {
+          return true;
         }
       }
     }
+  }
+
+  function hasHorizontal() {
+    const size = gameBoard.length;
     for (let row = 0; row < size; row++) {
       for (let col = 0; col < size - 1; col++) {
         if (gameBoard[row][col] === gameBoard[row][col + 1]) {
-          state = false;
+          return true;
         }
       }
     }
+  }
+
+  function hasVertical() {
+    const size = gameBoard.length;
     for (let row = 0; row < size - 1; row++) {
       for (let col = 0; col < size; col++) {
         if (gameBoard[row][col] === gameBoard[row + 1][col]) {
-          state = false;
+          return true;
         }
       }
     }
+  }
+
+  function has2048() {
+    const size = gameBoard.length;
+    for (let row = 0; row < size; row++) {
+      for (let col = 0; col < size; col++) {
+        if (gameBoard[row][col] === 2048) {
+          return true;
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    var state = !(hasZeroes(gameBoard) || hasHorizontal() || hasVertical());
+    var win = has2048();
     setGameOver(state);
     setWin(win);
   }, [gameBoard]);
 
   function addNewValue(board) {
     var newBoard = [...board];
-    var row = Math.floor(Math.random() * 4);
-    var col = Math.floor(Math.random() * 4);
-    var newValue = randomValue();
-    while (newBoard[row][col] !== 0) {
-      row = Math.floor(Math.random() * 4);
-      col = Math.floor(Math.random() * 4);
+    if (hasZeroes(newBoard)) {
+      var row = Math.floor(Math.random() * 4);
+      var col = Math.floor(Math.random() * 4);
+      var newValue = randomValue();
+      while (newBoard[row][col] !== 0) {
+        row = Math.floor(Math.random() * 4);
+        col = Math.floor(Math.random() * 4);
+      }
+      newBoard[row][col] = newValue;
     }
-    newBoard[row][col] = newValue;
     return newBoard;
   }
 
@@ -86,19 +107,21 @@ function Gameboard() {
   }
 
   function move(row) {
+    var newScore = 0;
     var counter = 0;
     row = row.filter((x) => x !== 0);
     var length = row.length - 1;
     while (counter < length) {
       if (row[counter] === row[counter + 1]) {
         row[counter] += row[counter];
-        setScore(score + row[counter]);
+        newScore += row[counter];
         row.splice(counter + 1, 1);
         length--;
       }
       counter++;
     }
     row = Array.from({ ...row, length: 4 }, (v, i) => v ?? 0);
+    setScore((prevScore) => prevScore + newScore);
     return row;
   }
 
